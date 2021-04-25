@@ -10,7 +10,7 @@ public class Player {
 	int draws;
 	int score;
 	Game[] bestGames;
-	
+	Game[] recentGames;
 	public Player(String n,int gp,int w,int l,int d) {
 
 	this.name=n;
@@ -18,7 +18,8 @@ public class Player {
 	this.losses=l;
 	this.wins=w;
 	this.draws=d;
-	
+	bestGames= new Game[5];
+	recentGames= new Game[5];
 	}
     
 	
@@ -79,5 +80,33 @@ public class Player {
 		 setScore(score);
 	 }
 	
+	public void addRecentGame(Game g) {
+		for(int i=0;i<4;i++) {
+			if(recentGames[i]==null) {
+				recentGames[i]=g;
+				return;
+			}
+			if(i==4) {
+				recentGames[0]=recentGames[1];
+				recentGames[1]=recentGames[2];
+				recentGames[2]=recentGames[3];
+				recentGames[3]=recentGames[4];
+				recentGames[4]=g;
+			}
+		}
+		
+	}
 	
+	public void addBestGame(Game g) {
+		if(bestGames[0]==null) {
+			bestGames[0]=g;
+			return;
+		}
+		
+		
+	}
+	
+	public int compareGames(Game g1,Game g2) {
+		if(g1.score>g2.score)
+	}
 }
