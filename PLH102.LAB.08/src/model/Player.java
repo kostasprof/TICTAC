@@ -1,22 +1,24 @@
 package model;
 
+
 public class Player {
 
 	String name;
 	int games;
 	int wins;
 	int losses;
-	int winrate;
-	int lossrate;
 	int draws;
+	int score;
+	Game[] bestGames;
 	
-	public Player(String n,int w,int l,int gp,int d) {
+	public Player(String n,int gp,int w,int l,int d) {
 
 	this.name=n;
 	this.games=gp;
 	this.losses=l;
 	this.wins=w;
 	this.draws=d;
+	
 	}
     
 	
@@ -60,21 +62,22 @@ public class Player {
 		this.losses = losses;
 	}
 
-	public int getWinrate() {
-		return winrate;
+
+	
+	public int getScore() {
+		return score;
 	}
 
-	public void setWinrate(int winrate) {
-		this.winrate = winrate;
+	
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
-	public int getLossrate() {
-		return lossrate;
-	}
-
-	public void setLossrate(int lossrate) {
-		this.lossrate = lossrate;
-	}
+	 public void calcScore() {
+		 int score=50*(2 * this.wins + this.draws )/this.games;
+		 setScore(score);
+	 }
 	
 	
 }
