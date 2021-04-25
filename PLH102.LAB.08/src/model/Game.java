@@ -49,7 +49,7 @@ public class Game {
 	
     public void DateTimeGame() {
     	LocalDateTime dt= LocalDateTime.now();
-    	dt 
+    	
     }
     
 }
