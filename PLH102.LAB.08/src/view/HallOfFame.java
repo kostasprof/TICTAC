@@ -28,6 +28,7 @@ private GameController gc;
 	      int x = this.getWidth()/2 - 50;
 			int y = this.getHeight()/2;		
 			g.drawString("Hall Of Fame", x, y);
+			
 	      
 	}
 
