@@ -6,9 +6,10 @@ public class Player {
 	int games;
 	int wins;
 	int losses;
-	int winrate;
-	int lossrate;
-	int draws;
+    int score;
+    int draws;
+    Game[] bestGames;
+	
 	
 	public Player(String n,int w,int l,int gp,int d) {
 
