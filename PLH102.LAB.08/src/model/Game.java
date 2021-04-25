@@ -1,7 +1,8 @@
 package model;
-
+import java.time.LocalDate;
 public class Game {
 
-	String[] players;
-	int scores;
+	Player[] players;
+	String thsmanasoy;
+	
 }
