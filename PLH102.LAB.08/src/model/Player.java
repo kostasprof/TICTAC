@@ -1,23 +1,24 @@
 package model;
 
+
 public class Player {
 
 	String name;
 	int games;
 	int wins;
 	int losses;
-    int score;
-    int draws;
-    Game[] bestGames;
+	int draws;
+	int score;
+	Game[] bestGames;
 	
-	
-	public Player(String n,int w,int l,int gp,int d) {
+	public Player(String n,int gp,int w,int l,int d) {
 
 	this.name=n;
 	this.games=gp;
 	this.losses=l;
 	this.wins=w;
 	this.draws=d;
+	
 	}
     
 	
@@ -60,6 +61,20 @@ public class Player {
 	public void setLosses(int losses) {
 		this.losses = losses;
 	}
-		
+
+	public int getScore() {
+		return score;
+	}
+
 	
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	 public void calcScore() {
+		 int score=50*(2 * this.wins + this.draws )/this.games;
+		 setScore(score);
+	 }
+
 }
