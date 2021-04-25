@@ -46,6 +46,7 @@ public class Game {
 		DateTimeOfGame = localDateTime;
 	}
     
+	
     public void DateTimeGame() {
     	LocalDateTime dt= LocalDateTime.now();
     	dt 
