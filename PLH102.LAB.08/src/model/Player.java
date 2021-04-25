@@ -60,22 +60,6 @@ public class Player {
 	public void setLosses(int losses) {
 		this.losses = losses;
 	}
-
-	public int getWinrate() {
-		return winrate;
-	}
-
-	public void setWinrate(int winrate) {
-		this.winrate = winrate;
-	}
-
-	public int getLossrate() {
-		return lossrate;
-	}
-
-	public void setLossrate(int lossrate) {
-		this.lossrate = lossrate;
-	}
-	
+		
 	
 }
