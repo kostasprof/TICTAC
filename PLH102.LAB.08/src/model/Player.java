@@ -1,4 +1,4 @@
-
+package model;
 
 
 public class Player {
@@ -107,6 +107,7 @@ public class Player {
 	}
 	
 	public int compareGames(Game g1,Game g2) {
-		if(g1.score>g2.score)
+		//if(g1.score>g2.score)
+		return 0; 
 	}
 }

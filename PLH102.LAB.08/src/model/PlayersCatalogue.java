@@ -2,6 +2,7 @@ package model;
 
 public class PlayersCatalogue {
 	private String[] players;
+	int numofplayers=4;
 	
 	
 	public PlayersCatalogue() {
@@ -12,7 +13,10 @@ public class PlayersCatalogue {
 		players[3]="Eleni";		
 	}
 	
+	public void AddPlayer(Player p) {
+	//this.players[numofplayers]=p;
 	
+	}
 	
 	public String getPlayer(int i) {
 		if (i<0 || i>4) {
