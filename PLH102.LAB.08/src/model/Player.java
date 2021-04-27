@@ -11,6 +11,7 @@ public class Player {
 	int score;
 	Game[] bestGames;
 	Game[] recentGames;
+	int bestGamesCount;
 	public Player(String n,int gp,int w,int l,int d) {
 
 	this.name=n;
@@ -20,6 +21,7 @@ public class Player {
 	this.draws=d;
 	bestGames= new Game[5];
 	recentGames= new Game[5];
+	bestGamesCount=0;
 	}
     
 	
@@ -96,15 +98,46 @@ public class Player {
 	}
 	
 	public void addBestGame(Game g) {
+		int best;
 		if(bestGames[0]==null) {
 			bestGames[0]=g;
+			bestGamesCount++;
 			return;
+		}
+		for(int i=0;i<5;i++) {
+			best=compareGames(g,bestGames[i]);
+			if(best==1) {
+				for(int j=bestGamesCount-1;j>=i;j--) {
+					bestGames[j]=bestGames[j-1];
+					}
+				bestGames[i]=g;
+				
+			}
+			else if(best==2) {
+				continue;
+			}
 		}
 		
 		
 	}
 	
 	public int compareGames(Game g1,Game g2) {
-		if(g1.getScore()>g2.getScore())
+		if(g1.getResult()>g2.getResult()) {
+			return 1;
+		}
+		if(g1.getResult()<g2.getResult()) {
+			return 2;
+		}
+		if(g1.getResult()==g2.getResult()) {
+			if(g1.opponent.getScore()>g2.opponent.getScore()) {
+				return 1;
+			}
+			if(g1.opponent.getScore()<g2.opponent.getScore()) {
+				return 2;
+			}
+			if(g1.opponent.getScore()==g2.opponent.getScore()) {
+				//find most recent game
+			}
+		}
 	}
 }
