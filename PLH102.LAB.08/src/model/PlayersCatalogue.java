@@ -1,24 +1,20 @@
 package model;
 
 public class PlayersCatalogue {
-	private String[] players;
-	int numofplayers=4;
+	private Player[] players;
 	
 	
-	public PlayersCatalogue() {
+	/*public PlayersCatalogue() {
 		players = new String[4];
 		players[0]="Vasilis";
 		players[1]="Nektarios";
 		players[2]="Yannis";
 		players[3]="Eleni";		
-	}
+	}*/
 	
-	public void AddPlayer(Player p) {
-	//this.players[numofplayers]=p;
 	
-	}
 	
-	public String getPlayer(int i) {
+	public Player getPlayer(int i) {
 		if (i<0 || i>4) {
 			return null;
 		}
@@ -26,7 +22,7 @@ public class PlayersCatalogue {
 	}
 	
 	
-	public String[] getPlayers() {
+	public Player[] getPlayers() {
 		return players;
 	}
 	

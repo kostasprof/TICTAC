@@ -2,32 +2,24 @@ package model;
 import java.time.LocalDateTime;
 public class Game {
 
-	Player[] players;
-    int score[];
+	Player player;
+	Player opponent;
     int result;
-    String DateTimeOfGame;
+    LocalDateTime time;
     
-    public Game(int sc[],String LDT,int res,Player[] ps){
-    	this.score=sc;
+    public Game(Player p,Player op,int res){
+    	this.player=p;
+    	this.opponent=op;
     	this.result=res;
-    	this.players=ps;
-    	this.DateTimeOfGame=LDT;		
+    			
     }
 
-	public Player[] getPlayers() {
-		return players;
+	public Player getPlayers() {
+		return player;
 	}
 
-	public void setPlayers(Player[] players) {
-		this.players = players;
-	}
-
-	public int[] getScore() {
-		return score;
-	}
-
-	public void setScore(int[] score) {
-		this.score = score;
+	public void setPlayers(Player players) {
+		this.player = players;
 	}
 
 	public int getResult() {
@@ -38,16 +30,18 @@ public class Game {
 		this.result = result;
 	}
 
-	public String getLocalDateTime() {
-		return DateTimeOfGame;
+	public LocalDateTime getLocalDateTime() {
+		return time;
 	}
 
-	public void setLocalDateTime(String localDateTime) {
-		DateTimeOfGame = localDateTime;
+	public void setLocalDateTime(LocalDateTime localDateTime) {
+		time = localDateTime;
 	}
     
 	
-    public void DateTimeGame() {
-    	LocalDateTime dt= LocalDateTime.now(); 
-    }    
+    public LocalDateTime DateTimeGame() {
+    	LocalDateTime dt= LocalDateTime.now();
+    	return dt;
+    }
+    
 }

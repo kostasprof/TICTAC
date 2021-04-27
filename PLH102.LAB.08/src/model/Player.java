@@ -63,8 +63,6 @@ public class Player {
 		this.losses = losses;
 	}
 
-
-	
 	public int getScore() {
 		return score;
 	}
@@ -79,6 +77,7 @@ public class Player {
 		 int score=50*(2 * this.wins + this.draws )/this.games;
 		 setScore(score);
 	 }
+
 	
 	public void addRecentGame(Game g) {
 		for(int i=0;i<4;i++) {
@@ -107,7 +106,10 @@ public class Player {
 	}
 	
 	public int compareGames(Game g1,Game g2) {
-		//if(g1.score>g2.score)
-		return 0; 
+		if(g1.getScore()>g2.getScore())
+
 	}
+
+
+
 }
