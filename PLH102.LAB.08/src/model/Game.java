@@ -41,7 +41,11 @@ public class Game {
 	
     public LocalDateTime DateTimeGame() {
     	LocalDateTime dt= LocalDateTime.now();
+<<<<<<< HEAD
     	return dt;
+=======
+    	
+>>>>>>> branch 'master' of https://github.com/kostasprof/TICTAC.git
     }
     
 }

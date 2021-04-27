@@ -77,7 +77,11 @@ public class Player {
 		 int score=50*(2 * this.wins + this.draws )/this.games;
 		 setScore(score);
 	 }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/kostasprof/TICTAC.git
 	
 	public void addRecentGame(Game g) {
 		for(int i=0;i<4;i++) {
@@ -107,9 +111,18 @@ public class Player {
 	
 	public int compareGames(Game g1,Game g2) {
 		if(g1.getScore()>g2.getScore())
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/kostasprof/TICTAC.git
 	}
+<<<<<<< HEAD
 
 
 
+=======
+
+
+
+>>>>>>> branch 'master' of https://github.com/kostasprof/TICTAC.git
 }
