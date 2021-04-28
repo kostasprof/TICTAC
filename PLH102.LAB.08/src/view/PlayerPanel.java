@@ -43,11 +43,11 @@ public class PlayerPanel extends GamePanel{
 		selectPlayerBtn.addActionListener((e)->{changePlayer();});
 		this.add(selectPlayerBtn);
 		
-		/*AddPlayerBtn = new JButton("Choose Player");
+		JButton AddPlayerBtn = new JButton("Choose Player");
 		AddPlayerBtn.setPreferredSize(new Dimension(150,40));
 		AddPlayerBtn.setAlignmentX(CENTER_ALIGNMENT);
 		AddPlayerBtn.addActionListener((e)->{changePlayer();});
-		this.add(selectPlayerBtn);*/
+		this.add(selectPlayerBtn);
 		
 		plName = new JTextField();
 		plName.setPreferredSize(new Dimension(MainWindow.PLAYER_WIDTH,40));
@@ -80,7 +80,11 @@ public class PlayerPanel extends GamePanel{
 
 	public void changePlayer() {
 		//Get the list of all players
-		String[] allPlayers = gc.getModel().getPlayerCatalogue().getPlayersNames();
+		String[] allPlayers = new String[gc.getModel().getPlayerCatalogue().getNumofplayers()];
+		for(int i=0;i<gc.getModel().getPlayerCatalogue().getNumofplayers();i++) {
+			allPlayers[i]=gc.getModel().getPlayerCatalogue().getPlayerName(i);
+			System.out.println(allPlayers[i]);
+		}
 		Arrays.sort(allPlayers);
 
 		//Show Player Selection Dialog
