@@ -2,20 +2,16 @@ package model;
 
 public class PlayersCatalogue {
 	private Player[] players;
+	int numofplayers=0;
 	
-	
-	/*public PlayersCatalogue() {
-		players = new String[4];
-		players[0]="Vasilis";
-		players[1]="Nektarios";
-		players[2]="Yannis";
-		players[3]="Eleni";		
-	}*/
+	public PlayersCatalogue() {
+		this.players= new Player[100];
+	}
 	
 	
 	
 	public Player getPlayer(int i) {
-		if (i<0 || i>4) {
+		if (i<this.numofplayers-1 || i>this.numofplayers-1) {
 			return null;
 		}
 		return players[i];
@@ -26,4 +22,21 @@ public class PlayersCatalogue {
 		return players;
 	}
 	
+	public void addPlayer(Player i) {
+		this.players[numofplayers]=i;
+		numofplayers++;
+	}
+	
+	public String getPlayerName(Player i) {
+		String n=i.getName();
+		return n;
+	}
+	
+	public String[] getPlayersNames() {
+		String[] s= new String[numofplayers];
+		for(int i=0; i<this.numofplayers; i++) {
+			s[i]=players[i].getName();
+		}
+		return s;
+	}
 }

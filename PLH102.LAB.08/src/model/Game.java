@@ -7,11 +7,11 @@ public class Game {
     int result;
     LocalDateTime time;
     
-    public Game(Player p,Player op,int res){
+    public Game(Player p,Player op,int res,LocalDateTime t){
     	this.player=p;
     	this.opponent=op;
     	this.result=res;
-    			
+    	this.time=t;		
     }
 
 	public Player getPlayers() {

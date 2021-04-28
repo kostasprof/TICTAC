@@ -14,6 +14,7 @@ public class TopPanel extends GamePanel{
 	JButton quitBtn;
 	JButton startGameBtn;
 	JButton doneBtn;
+	JButton addPlayerBtn;
 	
 	public TopPanel(GameController gc) {
 		super(gc);
@@ -29,6 +30,10 @@ public class TopPanel extends GamePanel{
 		startGameBtn.setEnabled(false);
 		startGameBtn.addActionListener((e)->{this.gc.startGame();});
 		
+		addPlayerBtn = new JButton("Add Player");
+		addPlayerBtn.setPreferredSize(new Dimension(100, 40));
+		addPlayerBtn.addActionListener((e)->{this.gc.startGame();});
+		
 		doneBtn = new JButton("Done");		
 		doneBtn.setPreferredSize(new Dimension(100, 40));		
 		doneBtn.setEnabled(false);
@@ -36,7 +41,12 @@ public class TopPanel extends GamePanel{
 		
 		add(startGameBtn);
 		add(doneBtn);
-		add(quitBtn);					
+		add(quitBtn);
+		add(addPlayerBtn);
+	}
+
+	public JButton getAddPlayerBtn() {
+		return addPlayerBtn;
 	}
 
 	public JButton getQuitBtn() {

@@ -44,6 +44,7 @@ public class GameController extends WindowAdapter {
 	public void startGame() {
 		this.model.setGameBoard(new String[3][3]);
 		this.view.getTopPanel().getStartBtn().setEnabled(false);
+		this.view.getTopPanel().getAddPlayerBtn();
 		this.view.getMainPanel().showCard(MainAreaPanel.BOARD);
 		this.view.getLeftPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
 		this.view.getRightPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
