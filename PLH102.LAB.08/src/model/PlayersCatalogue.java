@@ -3,7 +3,7 @@ package model;
 public class PlayersCatalogue {
 	private Player[] players;
 	int numofplayers;
-	
+	Player[] bestPlayers;
 	public PlayersCatalogue() {
 		this.players= new Player[100];
 		numofplayers=0;
@@ -57,4 +57,34 @@ public class PlayersCatalogue {
 		 return players[i].getName();
 		
 	}
+	
+	public Player findPlayerByName(String name) {
+		for(Player p: this.players) {
+			if(p!=null&&p.getName().equals(name)) {
+				return p;
+			}
+		
+		}
+		return null;
+	}
+	
+	
+	public void sortPlayers() {
+		Player temp;
+		for(int i=0;i<players.length-1;i++) {
+			for(int j=i;j>0;j--) {
+				if(players[i]==null) {
+					return;
+				}
+				if(players[j].getScore()>players[j-1].getScore()) {
+					temp=players[j];
+					players[j]=players[j-1];
+					players[j-1]=temp;
+					
+				}
+			}
+		}
+	}
+		
+	
 }

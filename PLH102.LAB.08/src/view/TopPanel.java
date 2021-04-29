@@ -5,9 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.JTextField;
+
 import control.GameController;
 import java.util.Scanner;
 public class TopPanel extends GamePanel{	
@@ -17,7 +18,7 @@ public class TopPanel extends GamePanel{
 	JButton addPlayerBtn;
 	Scanner input = new Scanner(System.in);
 	String name; 
-	JTextField typing;
+	
 	
 	public TopPanel(GameController gc) {
 		super(gc);
@@ -32,11 +33,11 @@ public class TopPanel extends GamePanel{
 		startGameBtn.setPreferredSize(new Dimension(100, 40));
 		startGameBtn.setEnabled(false);
 		startGameBtn.addActionListener((e)->{this.gc.startGame();});
-		typing= new JTextField();
-		typing.setPreferredSize(new Dimension(100,40));
+		
+		
 		addPlayerBtn = new JButton("Add Player");
 		addPlayerBtn.setPreferredSize(new Dimension(100, 40));
-		addPlayerBtn.addActionListener((e)->{});
+		addPlayerBtn.addActionListener((e)->{this.gc.addPlayer(gc);});
 		
 		doneBtn = new JButton("Done");		
 		doneBtn.setPreferredSize(new Dimension(100, 40));		

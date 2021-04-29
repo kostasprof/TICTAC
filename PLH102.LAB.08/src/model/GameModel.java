@@ -109,11 +109,18 @@ public class GameModel {
 	
 	/* Changes for Lab 08 */
 	public String getPlayerStats(String player) {
+		Player p=this.playerCatalogue.findPlayerByName(player);
 		StringBuilder sb = new StringBuilder("");
+		float winr,lossr,wins=p.getWins(),losses=p.getLosses(),games=p.getGames();
+		
+		winr=wins/games*100;
+		lossr=losses/games*100;
 		sb.append(player).append("\n\n\n");
-		sb.append("Total:").append("\t").append(4).append("\n");
-		sb.append("Won:").append("\t").append("75%").append("\n");
-		sb.append("Lost:").append("\t").append("25%").append("\n");
+		sb.append("Total:").append("\t").append(p.getGames()).append("\n");
+		sb.append("Won:").append("\t").append(winr+"%").append("\n");
+		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
+		System.out.println("\n");
+		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
 		return sb.toString();			
 	}
 		

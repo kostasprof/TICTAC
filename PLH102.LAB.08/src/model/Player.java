@@ -66,7 +66,9 @@ public class Player {
 	}
 
 	public int getScore() {
+		calcScore();
 		return score;
+		
 	}
 
 	

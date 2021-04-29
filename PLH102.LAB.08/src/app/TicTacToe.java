@@ -10,16 +10,13 @@ public class TicTacToe {
 	
 	public static void main(String[] args) {		
 		
-		PlayersCatalogue pc=new PlayersCatalogue();
-		Player p=new Player("Grothos",5,5,0,0);
-		Player e=new Player("Kostas",5,0,5,0);
-		pc.addPlayer(p);
-		pc.addPlayer(e);
-		
-		
 		GameController gc = new GameController();
 		
 		gc.start();
-		
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Grothos",10,5,5,0));
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Kostas",10,0,10,0));
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Giannis",10,0,10,0));
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Lakis",10,10,0,0));
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Vsam",100,0,500,0));
 	}
 }
