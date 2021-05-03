@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;

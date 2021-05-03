@@ -1,5 +1,17 @@
 package model;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
+
+
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
 public class PlayersCatalogue {
 	private Player[] players;
 	int numofplayers;
@@ -37,6 +49,8 @@ public class PlayersCatalogue {
 
 	public void addPlayer(Player i) {
 		this.players[numofplayers]=i;
+		storePlayers();
+		
 		numofplayers++;
 	}
 	
@@ -85,6 +99,54 @@ public class PlayersCatalogue {
 			}
 		}
 	}
+	
+	public void storePlayers() {
+		ObjectOutputStream os = null;
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream("players.txt");			
+			os = new ObjectOutputStream(fos);
+			
+			for (Player s: players) {
+				os.writeObject(s);
+			}
+			
+		} catch (FileNotFoundException e) {
+			
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}finally {
+			try {os.close(); fos.close();}catch (Exception e) {
+			}
+		}
+	}
+	
+	public void loadPlayers() {
+		ObjectInputStream is = null;
+		FileInputStream fis = null;		
+		int pos=0;
+		try {
+			fis = new FileInputStream("players.txt");			
+			is = new ObjectInputStream(fis);			
+			while (fis.available()>0) {				
+				Player s = (Player)is.readObject();				
+				this.players[pos++] = s;
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+		
+		} catch (IOException e) {			
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			
+		}finally {
+			try {is.close(); fis.close();}catch (Exception e) {
+			}
+		}
+	}
+	
+	
 		
 	
 }
