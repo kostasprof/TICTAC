@@ -56,7 +56,6 @@ public class PlayerPanel extends GamePanel{
 		plName.setHorizontalAlignment(JTextField.CENTER);
 		plName.setEnabled(false);
 		
-		/* Changes for Lab 08: Player Mark */
 		plMark = new JLabel(pos==0? "X" : "O");
 		plMark.setPreferredSize(new Dimension(MainWindow.PLAYER_WIDTH,80));
 		plMark.setAlignmentX(CENTER_ALIGNMENT);
@@ -65,7 +64,6 @@ public class PlayerPanel extends GamePanel{
 		Font markf = new Font("SansSerif", Font.BOLD,90);
 		plMark.setFont(markf);
 		
-		/* Changes for Lab 08: Player Stats JTextArea */
 		plStats = new JTextArea(10,100);		
 		plStats.setPreferredSize(new Dimension(MainWindow.PLAYER_WIDTH,400));
 		plStats.setAlignmentX(CENTER_ALIGNMENT);
@@ -79,7 +77,6 @@ public class PlayerPanel extends GamePanel{
 	}
 
 	public void changePlayer() {
-		//Get the list of all players
 		String[] allPlayers = new String[gc.getModel().getPlayerCatalogue().getNumofplayers()];
 		for(int i=0;i<gc.getModel().getPlayerCatalogue().getNumofplayers();i++) {
 			allPlayers[i]=gc.getModel().getPlayerCatalogue().getPlayerName(i);
@@ -87,7 +84,6 @@ public class PlayerPanel extends GamePanel{
 		}
 		Arrays.sort(allPlayers);
 
-		//Show Player Selection Dialog
 		String selPlayer = (String) JOptionPane.showInputDialog(this, 
 				"Choose a Player...",
 				"Player selection",
@@ -96,8 +92,7 @@ public class PlayerPanel extends GamePanel{
 				allPlayers,
 				currentPlayer
 				);
-		
-		//Set the selected player		
+				
 		if(selPlayer != null) {
 			if (selPlayer.equals(gc.getModel().getGamePlayers()[pos==0?1:0])) {
 				JOptionPane.showMessageDialog(gc.getView(), 						

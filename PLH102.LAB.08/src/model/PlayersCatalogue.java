@@ -122,6 +122,8 @@ public class PlayersCatalogue {
 	}
 	
 	public void loadPlayers() {
+		
+		
 		ObjectInputStream is = null;
 		FileInputStream fis = null;		
 		int pos=0;

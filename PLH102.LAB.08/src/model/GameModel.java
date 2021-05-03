@@ -8,7 +8,6 @@ public class GameModel {
 	String[][] gameBoard;
 	GameController gc;
  
-	/* Changes for Lab 08 */
 	Boolean mover;
 	int moves;
 	
@@ -17,7 +16,6 @@ public class GameModel {
 		gamePlayers = new String[2];
 		gameBoard= null;
 		playerCatalogue= new PlayersCatalogue();
-		/* Changes for Lab 08 */
 		mover=false;
 		moves=0;
 	}
@@ -46,7 +44,6 @@ public class GameModel {
 		return !inPlay();
 	}
 	
-	/* Changes for Lab 08 */
 	public int getMover() {
 		return mover.compareTo(false);
 	}
@@ -61,14 +58,12 @@ public class GameModel {
 		return gameBoard;
 	}
 	
-	/* Changes for Lab 08 */
 	public void checkDimValidity(int row, int col) {
 		if (row <0 || col < 0 || row > 2 || col >2) {
 			throw new IndexOutOfBoundsException(row + ","+col +" is not a valid board cell");
 		}
 	}
 	
-	/* Changes for Lab 08 */
 	public void checkMoveValidity(int row, int col) {
 		checkDimValidity(row, col);
 		if (gameBoard[row][col]!=null) {
@@ -76,7 +71,6 @@ public class GameModel {
 		}
 	}
 	
-	/* Changes for Lab 08 */
 	public String getBoardMark(int row, int col) {
 		checkDimValidity(row, col);
 		return gameBoard[row][col];
@@ -94,7 +88,6 @@ public class GameModel {
 		this.playerCatalogue = playerCatalogue;
 	}
 	
-	/* Changes for Lab 08 */
 	public void makeMove(int row, int col) {
 		checkMoveValidity(row, col);
 		gameBoard[row][col]=getMoverMark();
@@ -102,12 +95,10 @@ public class GameModel {
 		moves++;
 	}
 	
-	/* Changes for Lab 08 */
 	public String getMoverMark() {
 		return mover? "X": "O";
 	}
 	
-	/* Changes for Lab 08 */
 	public String getPlayerStats(String player) {
 		Player p=this.playerCatalogue.findPlayerByName(player);
 		StringBuilder sb = new StringBuilder("");
