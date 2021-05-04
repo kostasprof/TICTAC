@@ -1,5 +1,6 @@
 package view;
-
+import model.Player;
+import model.PlayersCatalogue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,7 +29,8 @@ public class PlayerPanel extends GamePanel{
 	JTextField plName;
 	JLabel plMark;
 	JTextArea plStats;
-	
+	int numOfCurrentPlayers;
+	Player[] currentPlayers;
 	
 	public PlayerPanel(GameController c, int pos) {
 		super(c);
@@ -42,6 +44,9 @@ public class PlayerPanel extends GamePanel{
 		selectPlayerBtn.setAlignmentX(CENTER_ALIGNMENT);
 		selectPlayerBtn.addActionListener((e)->{changePlayer();});
 		this.add(selectPlayerBtn);
+		numOfCurrentPlayers=0;
+		currentPlayers= new Player[2];
+		
 		
 		JButton AddPlayerBtn = new JButton("Choose Player");
 		AddPlayerBtn.setPreferredSize(new Dimension(150,40));
@@ -83,7 +88,7 @@ public class PlayerPanel extends GamePanel{
 			System.out.println(allPlayers[i]);
 		}
 		Arrays.sort(allPlayers);
-
+        
 		String selPlayer = (String) JOptionPane.showInputDialog(this, 
 				"Choose a Player...",
 				"Player selection",
@@ -100,7 +105,10 @@ public class PlayerPanel extends GamePanel{
 						"Ooops...",
 						JOptionPane.ERROR_MESSAGE);
 				return;
-			}			
+			}
+			Player p= gc.getModel().getPlayerCatalogue().findPlayerByName(selPlayer);
+			this.currentPlayers[numOfCurrentPlayers]=p;
+            numOfCurrentPlayers++;
 			this.currentPlayer=selPlayer;			
 			gc.selectPlayer(selPlayer,pos);
 			this.plName.setText(currentPlayer);

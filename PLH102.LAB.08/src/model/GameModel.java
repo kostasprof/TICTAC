@@ -93,6 +93,20 @@ public class GameModel {
 		gameBoard[row][col]=getMoverMark();
 		mover=!mover;
 		moves++;
+		switch(checkWin()) {
+			case 0:
+				System.out.println("O won");
+				break;
+				
+			case 1:
+				System.out.println("X won");
+				break;
+			case -1:
+				break;
+				
+		}
+		
+		
 	}
 	
 	public String getMoverMark() {
@@ -113,6 +127,45 @@ public class GameModel {
 		System.out.println("\n");
 		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
 		return sb.toString();			
+	}
+	
+	public int checkWin() {
+		if(gameBoard[0][0].equals("X")==true && gameBoard[0][1].equals("X")==true && gameBoard[0][2].equals("X")==true)
+			return 1;
+		if(gameBoard[1][0].equals("X")==true && gameBoard[1][1].equals("X")==true && gameBoard[1][2].equals("X")==true)
+			return 1;
+		if(gameBoard[2][0].equals("X")==true && gameBoard[2][1].equals("X")==true && gameBoard[2][2].equals("X")==true)
+			return 1;
+		if(gameBoard[0][0].equals("X")==true && gameBoard[1][0].equals("X")==true && gameBoard[2][0].equals("X")==true)
+			return 1;
+		if(gameBoard[0][1].equals("X")==true && gameBoard[1][1].equals("X")==true && gameBoard[2][1].equals("X")==true)
+			return 1;
+		if(gameBoard[0][2].equals("X")==true && gameBoard[1][2].equals("X")==true && gameBoard[2][2].equals("X")==true)
+			return 1;
+		if(gameBoard[1][1].equals("X")==true && gameBoard[2][2].equals("X")==true && gameBoard[0][0].equals("X")==true)
+			return 1;
+		if(gameBoard[0][2].equals("X")==true && gameBoard[1][1].equals("X")==true && gameBoard[2][0].equals("X")==true)
+			return 1;
+
+
+		if(gameBoard[0][0].equals("O")==true && gameBoard[0][1].equals("O")==true && gameBoard[0][2].equals("O")==true)
+			return 0;
+		if(gameBoard[1][0].equals("O")==true && gameBoard[1][1].equals("O")==true && gameBoard[1][2].equals("O")==true)
+			return 0;
+		if(gameBoard[2][0].equals("O")==true && gameBoard[2][1].equals("O")==true && gameBoard[2][2].equals("O")==true)
+			return 0;
+		if(gameBoard[0][0].equals("O")==true && gameBoard[1][0].equals("O")==true && gameBoard[2][0].equals("O")==true)
+			return 0;
+		if(gameBoard[0][1].equals("O")==true && gameBoard[1][1].equals("O")==true && gameBoard[2][1].equals("O")==true)
+			return 0;
+		if(gameBoard[0][2].equals("O")==true && gameBoard[1][2].equals("O")==true && gameBoard[2][2].equals("O")==true)
+			return 0;
+		if(gameBoard[1][1].equals("O")==true && gameBoard[2][2].equals("O")==true && gameBoard[0][0].equals("O")==true)
+			return 0;
+		if(gameBoard[0][2].equals("O")==true && gameBoard[1][1].equals("O")==true && gameBoard[2][0].equals("O")==true)
+			return 0;
+		
+		return -1;
 	}
 		
 }

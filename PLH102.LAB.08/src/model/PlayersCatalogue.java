@@ -49,8 +49,7 @@ public class PlayersCatalogue {
 
 	public void addPlayer(Player i) {
 		this.players[numofplayers]=i;
-		storePlayers();
-		
+		storePlayer();
 		numofplayers++;
 	}
 	
@@ -100,13 +99,12 @@ public class PlayersCatalogue {
 		}
 	}
 	
-	public void storePlayers() {
+	public void storePlayer() {
 		ObjectOutputStream os = null;
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream("players.txt");			
 			os = new ObjectOutputStream(fos);
-			
 			for (Player s: players) {
 				os.writeObject(s);
 			}
