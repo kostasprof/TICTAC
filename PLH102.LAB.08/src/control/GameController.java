@@ -28,7 +28,7 @@ public class GameController extends WindowAdapter {
 		this.view= new MainWindow(this);
 		this.model = new GameModel(this);
 		this.view.addWindowListener(this);
-		this.view.setVisible(true);
+		this.view.setVisible(true);	
 	}
 	
 	public void quit() {		
