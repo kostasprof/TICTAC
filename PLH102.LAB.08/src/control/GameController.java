@@ -29,7 +29,10 @@ public class GameController extends WindowAdapter {
 		this.model = new GameModel(this);
 		this.view.addWindowListener(this);
 		this.view.setVisible(true);	
+		/*this.getModel().getPlayerCatalogue().loadPlayers();*/
+	
 	}
+	
 	
 	public void quit() {		
 		System.out.println("bye bye...");		

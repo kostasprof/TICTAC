@@ -49,7 +49,7 @@ public class PlayersCatalogue {
 
 	public void addPlayer(Player i) {
 		this.players[numofplayers]=i;
-		storePlayer();
+		storePlayers();
 		numofplayers++;
 	}
 	
@@ -99,12 +99,15 @@ public class PlayersCatalogue {
 		}
 	}
 	
-	public void storePlayer() {
+	public void storePlayers() {
 		ObjectOutputStream os = null;
 		FileOutputStream fos = null;
+		
+
 		try {
 			fos = new FileOutputStream("players.txt");			
 			os = new ObjectOutputStream(fos);
+			
 			for (Player s: players) {
 				os.writeObject(s);
 			}
@@ -130,7 +133,9 @@ public class PlayersCatalogue {
 			is = new ObjectInputStream(fis);			
 			while (fis.available()>0) {				
 				Player s = (Player)is.readObject();				
+				
 				this.players[pos++] = s;
+				
 			}
 			
 			
