@@ -30,7 +30,6 @@ public class PlayerPanel extends GamePanel{
 	JLabel plMark;
 	JTextArea plStats;
 	int numOfCurrentPlayers;
-	Player[] currentPlayers;
 	
 	public PlayerPanel(GameController c, int pos) {
 		super(c);
@@ -45,7 +44,6 @@ public class PlayerPanel extends GamePanel{
 		selectPlayerBtn.addActionListener((e)->{changePlayer();});
 		this.add(selectPlayerBtn);
 		numOfCurrentPlayers=0;
-		currentPlayers= new Player[2];
 		
 		
 		JButton AddPlayerBtn = new JButton("Choose Player");
@@ -107,7 +105,7 @@ public class PlayerPanel extends GamePanel{
 				return;
 			}
 			Player p= gc.getModel().getPlayerCatalogue().findPlayerByName(selPlayer);
-			this.currentPlayers[numOfCurrentPlayers]=p;
+			gc.getModel().getPlayerCatalogue().setCurrentPlayers(gc.getModel().getPlayerCatalogue().getNumOfCurrentPlayers(),p);
             numOfCurrentPlayers++;
 			this.currentPlayer=selPlayer;			
 			gc.selectPlayer(selPlayer,pos);

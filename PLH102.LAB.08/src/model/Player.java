@@ -99,7 +99,7 @@ public class Player implements Serializable {
 		
 	}
 	
-	/*public void addBestGame(Game g) {
+	public void addBestGame(Game g) {
 		int best;
 		if(bestGames[0]==null) {
 			bestGames[0]=g;
@@ -121,9 +121,9 @@ public class Player implements Serializable {
 		}
 		
 		
-    }*/
+    }
 	
-	/*public int compareGames(Game g1,Game g2) {
+	public int compareGames(Game g1,Game g2) {
 		if(g1.getResult()>g2.getResult()) {
 			return 1;
 		}
@@ -141,5 +141,6 @@ public class Player implements Serializable {
 				//find most recent game
 			}
 		}
-	}*/
+		return 0;
+	}
 }

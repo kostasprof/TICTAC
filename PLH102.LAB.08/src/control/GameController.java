@@ -35,7 +35,7 @@ public class GameController extends WindowAdapter {
 	
 	
 	public void quit() {		
-		System.out.println("bye bye...");		
+		System.out.println("GAME FINISHED");		
 		System.exit(0);
 	}
 	

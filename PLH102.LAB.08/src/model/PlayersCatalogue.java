@@ -16,13 +16,43 @@ public class PlayersCatalogue {
 	private Player[] players;
 	int numofplayers;
 	Player[] bestPlayers;
+	Player[] currentPlayers;
+	int numOfCurrentPlayers;
+	
 	public PlayersCatalogue() {
 		this.players= new Player[100];
 		numofplayers=0;
+	    currentPlayers= new Player[2];
+	    numOfCurrentPlayers=0;
 	}
 	
 	
 	
+	public Player[] getCurrentPlayers() {
+		return currentPlayers;
+	}
+
+
+
+	public void setCurrentPlayers(int i,Player p) {
+		this.currentPlayers[i] = p;
+		numOfCurrentPlayers++;
+	}
+
+
+
+	public int getNumOfCurrentPlayers() {
+		return numOfCurrentPlayers;
+	}
+
+
+
+	public void setNumOfCurrentPlayers(int numOfCurrentPlayers) {
+		this.numOfCurrentPlayers = numOfCurrentPlayers;
+	}
+
+
+
 	public Player getPlayer(int i) {
 		if (i<this.numofplayers-1 || i>this.numofplayers-1) {
 			return null;

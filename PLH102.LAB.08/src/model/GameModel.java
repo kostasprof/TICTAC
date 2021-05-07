@@ -1,7 +1,8 @@
 package model;
 
 import control.GameController;
-
+import view.MainAreaPanel;
+import view.PlayerPanel;
 public class GameModel {
 	PlayersCatalogue  playerCatalogue;
 	String [] gamePlayers;		
@@ -93,16 +94,41 @@ public class GameModel {
 		gameBoard[row][col]=getMoverMark();
 		mover=!mover;
 		moves++;
+		Player[] currentPlayers = new Player[2];
+		currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
 		switch(checkWin()) {
 			case 0:
-				System.out.println("O won");
+				System.out.println("O won"); /*PLAYER 1*/
+				currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1));
+				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1));
+				
+				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
+				
+				
 				break;
 				
 			case 1:
-				System.out.println("X won");
+				System.out.println("X won"); /*PLAYER 0*/
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1));
+				
+				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				break;
 			case -1:
-				break;
+				/*System.out.println("DRAW");
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
+				break;*/
 				
 		}
 		
