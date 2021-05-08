@@ -127,6 +127,7 @@ public class GameModel {
 				
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
+				
 				break;
 			case -1:
 				/*System.out.println("DRAW");
