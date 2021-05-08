@@ -19,7 +19,7 @@ public class Player implements Serializable {
 	this.losses=l;
 	this.wins=w;
 	this.draws=d;
-	bestGames= new Game[5];
+	bestGames= new Game[100];
 	recentGames= new Game[5];
 	bestGamesCount=0;
 	}
@@ -129,7 +129,7 @@ public class Player implements Serializable {
 		
 	}
 	
-	public void addBestGame(Game g) {
+	/*public void addBestGame(Game g) {
 		int best;
 		if(bestGames[0]==null) {
 			bestGames[0]=g;
@@ -137,21 +137,47 @@ public class Player implements Serializable {
 			return;
 		}
 		for(int i=0;i<5;i++) {
+			if(bestGames[i]!=null) {
 			best=compareGames(g,bestGames[i]);
 			if(best==1) {
-				for(int j=bestGamesCount;j>=i;j--) {
+				for(int j=bestGamesCount-1;j>i;j--) {
 					bestGames[j]=bestGames[j-1];
 					}
 				bestGames[i]=g;
-				
+				bestGamesCount++;
 			}
 			else if(best==2) {
 				continue;
 			}
+			}
 		}
+		}*/
+	
+	public void addBestGame(Game g){
+		bestGames[bestGamesCount]=g;
+		bestGamesCount++;
+		sortGames();
+	}
+	
+	public void sortGames() {
+		Game temp;
+		for(int i=0;i<bestGames.length-1;i++) {
+			for(int j=i;j>0;j--) {
+				if(bestGames[i]==null) {
+					return;
+				}
+				if(compareGames(bestGames[j],bestGames[j-1])==1) {
+					temp=bestGames[j];
+					bestGames[j]=bestGames[j-1];
+					bestGames[j-1]=temp;
+					
+				}
+			}
+		}
+	}
 		
 		
-    }
+    
 	
 	public int compareGames(Game g1,Game g2) {
 		if(g1.getResult()>g2.getResult()) {

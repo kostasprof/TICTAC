@@ -159,10 +159,15 @@ public class GameModel {
 		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
 		System.out.println("\n");
 		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
-		sb.append("BestGames:").append("\t");
+		sb.append("Best Games:").append("\t");
 		for(int i=0;i<5;i++) {
 			if(p.getBestGames()[i]!=null)
-				sb.append("Game against").append("\t").append(p.getBestGames()[i].getOpponent().getName());
+				sb.append("Against ").append(p.getBestGames()[i].getOpponent().getName()).append("\n");
+		}
+		sb.append("Recent Games:");
+		for(int j=0;j<5;j++) {
+			if(p.getRecentGames()[j]!=null)
+				sb.append("Against ").append(p.getRecentGames()[j].getOpponent().getName()).append("\n");
 		}
 		return sb.toString();			
 	}
