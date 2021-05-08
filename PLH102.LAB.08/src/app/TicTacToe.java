@@ -19,13 +19,14 @@ public class TicTacToe {
 		
 		GameController gc = new GameController();
 		
-		gc.start();		
+		gc.start();	
+		
 		gc.getModel().getPlayerCatalogue().loadPlayers();
-		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Grothos",10,5,5,0));
+		/*gc.getModel().getPlayerCatalogue().addPlayer(new Player("Grothos",10,5,5,0));
 		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Kostas",10,0,10,0));
 		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Giannis",10,0,10,0));
 		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Lakis",10,10,0,0));
-		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Vsam",100,0,500,0));
+		gc.getModel().getPlayerCatalogue().addPlayer(new Player("Vsam",100,0,500,0));*/
 		
 		
 	}

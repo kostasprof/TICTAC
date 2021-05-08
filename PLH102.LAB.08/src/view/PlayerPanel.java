@@ -80,12 +80,14 @@ public class PlayerPanel extends GamePanel{
 	}
 
 	public void changePlayer() {
-		String[] allPlayers = new String[gc.getModel().getPlayerCatalogue().getNumofplayers()];
+		String[] allPlayers = new String[100];
 		for(int i=0;i<gc.getModel().getPlayerCatalogue().getNumofplayers();i++) {
+			if(gc.getModel().getPlayerCatalogue().getPlayerName(i)!=null) {
 			allPlayers[i]=gc.getModel().getPlayerCatalogue().getPlayerName(i);
 			System.out.println(allPlayers[i]);
+			}
 		}
-		Arrays.sort(allPlayers);
+		//Arrays.sort(allPlayers);
         
 		String selPlayer = (String) JOptionPane.showInputDialog(this, 
 				"Choose a Player...",

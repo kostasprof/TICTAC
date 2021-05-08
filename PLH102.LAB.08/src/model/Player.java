@@ -25,6 +25,36 @@ public class Player implements Serializable {
 	}
     
 	
+	public Game[] getBestGames() {
+		return bestGames;
+	}
+
+
+	public void setBestGames(Game[] bestGames) {
+		this.bestGames = bestGames;
+	}
+
+
+	public Game[] getRecentGames() {
+		return recentGames;
+	}
+
+
+	public void setRecentGames(Game[] recentGames) {
+		this.recentGames = recentGames;
+	}
+
+
+	public int getBestGamesCount() {
+		return bestGamesCount;
+	}
+
+
+	public void setBestGamesCount(int bestGamesCount) {
+		this.bestGamesCount = bestGamesCount;
+	}
+
+
 	public int getDraws() {
 		return draws;
 	}
@@ -109,7 +139,7 @@ public class Player implements Serializable {
 		for(int i=0;i<5;i++) {
 			best=compareGames(g,bestGames[i]);
 			if(best==1) {
-				for(int j=bestGamesCount-1;j>=i;j--) {
+				for(int j=bestGamesCount;j>=i;j--) {
 					bestGames[j]=bestGames[j-1];
 					}
 				bestGames[i]=g;
@@ -143,4 +173,21 @@ public class Player implements Serializable {
 		}
 		return 0;
 	}
+	public void addGame(int i) {
+			if(i==1) {
+				this.games++;
+				this.wins++;
+			}
+			
+			if(i==0) {
+				this.draws++;
+				this.games++;
+			}
+			
+			if(i==-1) {
+				this.games++;
+				this.losses++;
+			}
+		}
+	
 }

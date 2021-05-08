@@ -79,7 +79,7 @@ public class PlayersCatalogue {
 
 	public void addPlayer(Player i) {
 		this.players[numofplayers]=i;
-		storePlayers();
+		
 		numofplayers++;
 	}
 	
@@ -139,6 +139,7 @@ public class PlayersCatalogue {
 			os = new ObjectOutputStream(fos);
 			
 			for (Player s: players) {
+				if(s!=null)
 				os.writeObject(s);
 			}
 			
@@ -162,13 +163,12 @@ public class PlayersCatalogue {
 			fis = new FileInputStream("players.txt");			
 			is = new ObjectInputStream(fis);			
 			while (fis.available()>0) {				
-				Player s = (Player)is.readObject();				
-				
-				this.players[pos++] = s;
-				
+				Player s = (Player)is.readObject();	
+				if(s!=null)
+				this.addPlayer(s);
 			}
 			
-			
+			System.out.println(this.numofplayers);
 		} catch (FileNotFoundException e) {
 		
 		} catch (IOException e) {			

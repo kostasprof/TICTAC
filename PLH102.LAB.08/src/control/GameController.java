@@ -25,11 +25,13 @@ public class GameController extends WindowAdapter {
 	
 	
 	public void start() {
+		
 		this.view= new MainWindow(this);
 		this.model = new GameModel(this);
+		/*this.getModel().getPlayerCatalogue().loadPlayers();*/
 		this.view.addWindowListener(this);
 		this.view.setVisible(true);	
-		/*this.getModel().getPlayerCatalogue().loadPlayers();*/
+		
 	
 	}
 	
@@ -75,6 +77,7 @@ public class GameController extends WindowAdapter {
 		String draws = JOptionPane.showInputDialog(gc, "How many draws do you have?");
 		int d=Integer.parseInt(draws);
 		this.getModel().getPlayerCatalogue().addPlayer(new Player(name,g,w,l,d));
+		this.getModel().getPlayerCatalogue().storePlayers();
 	}
 	
 }

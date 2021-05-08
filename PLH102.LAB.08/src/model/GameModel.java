@@ -102,10 +102,14 @@ public class GameModel {
 				currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(1);
 				
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],-1));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(-1);
 				
+				
+				gc.getModel().getPlayerCatalogue().storePlayers();
 				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				
 				
@@ -115,10 +119,13 @@ public class GameModel {
 				System.out.println("X won"); /*PLAYER 0*/
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(1);
 				
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],-1));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(-1);
 				
+				gc.getModel().getPlayerCatalogue().storePlayers();
 				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				break;
 			case -1:
@@ -152,6 +159,11 @@ public class GameModel {
 		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
 		System.out.println("\n");
 		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
+		sb.append("BestGames:").append("\t");
+		for(int i=0;i<5;i++) {
+			if(p.getBestGames()[i]!=null)
+				sb.append("Game against").append("\t").append(p.getBestGames()[i].getOpponent().getName());
+		}
 		return sb.toString();			
 	}
 	
