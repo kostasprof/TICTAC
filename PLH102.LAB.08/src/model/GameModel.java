@@ -1,5 +1,5 @@
 package model;
-
+import java.util.ArrayList;
 import control.GameController;
 import view.MainAreaPanel;
 import view.PlayerPanel;
@@ -8,7 +8,7 @@ public class GameModel {
 	String [] gamePlayers;		
 	String[][] gameBoard;
 	GameController gc;
- 
+	
 	Boolean mover;
 	int moves;
 	
@@ -96,6 +96,38 @@ public class GameModel {
 		moves++;
 		Player[] currentPlayers = new Player[2];
 		currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+		if(moves==9) {
+			System.out.println("draw"); /*Draw*/
+			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(0);
+			
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
+			
+			
+			gc.getModel().getPlayerCatalogue().storePlayers();
+			gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
+			
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
+			gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
+			
+			for(int i=0;i<3;i++) {
+				for(int j=0;j<3;j++) {
+					this.gameBoard[i][j]=null;
+				}
+			}
+			this.moves=0;
+			gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
+			gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
+			return;
+			
+			
+			
+		}
 		switch(checkWin()) {
 			case 0:
 				System.out.println("O won"); /*PLAYER 1*/
@@ -116,6 +148,12 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
 				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
 				
+				for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+						this.gameBoard[i][j]=null;
+					}
+				}
+				this.moves=0;
 				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
 				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
 				break;
@@ -136,6 +174,13 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
 				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
+				
+				for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+						this.gameBoard[i][j]=null;
+					}
+				}
+				this.moves=0;
 				
 				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
 				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
