@@ -148,6 +148,8 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
 				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
 				
+				
+				
 				for(int i=0;i<3;i++) {
 					for(int j=0;j<3;j++) {
 						this.gameBoard[i][j]=null;
@@ -298,5 +300,20 @@ public class GameModel {
 		
 		return -1;
 	}
+	
+	public int checkAI(){
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Mr Bean"))
+			return 1;
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean"))
+			return -1;
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Hal"))
+			return 2;
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal"))
+			return -2;
+		return 0;
+	}
+	
+	public void mrBean(int i){
 		
+	}
 }
