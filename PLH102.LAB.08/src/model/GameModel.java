@@ -112,7 +112,12 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
+				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
 				
+				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
+				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
 				break;
 				
 			case 1:
@@ -128,6 +133,12 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
+				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
+				
+				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
+				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
 				break;
 			case -1:
 				/*System.out.println("DRAW");
