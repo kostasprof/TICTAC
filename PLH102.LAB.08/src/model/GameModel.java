@@ -1,5 +1,8 @@
 package model;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.*;  
 import control.GameController;
 import view.MainAreaPanel;
 import view.PlayerPanel;
@@ -8,7 +11,10 @@ public class GameModel {
 	String [] gamePlayers;		
 	String[][] gameBoard;
 	GameController gc;
-	
+	 JFrame f; 
+	 JTextField t1;
+	 JTextField t2;
+	 JTextField t3;
 	Boolean mover;
 	int moves;
 	
@@ -19,6 +25,8 @@ public class GameModel {
 		playerCatalogue= new PlayersCatalogue();
 		mover=false;
 		moves=0;
+		f=new JFrame("Result");
+		
 	}
 	
 	public void selectPlayer(String player, int pos) {
@@ -72,6 +80,10 @@ public class GameModel {
 		}
 	}
 	
+	public void setMover(Boolean mover) {
+		this.mover = mover;
+	}
+
 	public String getBoardMark(int row, int col) {
 		checkDimValidity(row, col);
 		return gameBoard[row][col];
@@ -108,21 +120,26 @@ public class GameModel {
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
 			
 			
+			t1= new JTextField("Draw");
+			t1.setBounds(50,100, 200,30);
+			f.add(t1);
+			f.setSize(400,400);
+			f.setLayout(null);  
+			f.setVisible(true);
+			
+			
 			gc.getModel().getPlayerCatalogue().storePlayers();
-			gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
+			//gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 			
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
-			gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
 			
-			for(int i=0;i<3;i++) {
+			
+			/*for(int i=0;i<3;i++) {
 				for(int j=0;j<3;j++) {
 					this.gameBoard[i][j]=null;
 				}
-			}
+			}*/
 			this.moves=0;
-			gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
-			gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
+			gc.startGame();
 			return;
 			
 			
@@ -141,24 +158,24 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(-1);
 				
 				
+				t1= new JTextField(currentPlayers[1].getName()+" won");
+				t1.setBounds(50,100, 200,30);
+				f.add(t1);
+				f.setSize(400,400);
+				f.setLayout(null);  
+				f.setVisible(true);
+				
+				
 				gc.getModel().getPlayerCatalogue().storePlayers();
-				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
-				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
-				
-				
-				
-				for(int i=0;i<3;i++) {
+				/*for(int i=0;i<3;i++) {
 					for(int j=0;j<3;j++) {
 						this.gameBoard[i][j]=null;
 					}
-				}
+				}*/
 				this.moves=0;
-				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
-				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
-				break;
+				gc.startGame();
+				return;
 				
 			case 1:
 				System.out.println("X won"); /*PLAYER 0*/
@@ -170,34 +187,40 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(-1);
 				
+				t1= new JTextField(currentPlayers[0].getName()+" won");
+				t1.setBounds(50,100, 200,30);
+				f.add(t1);
+				f.setSize(400,400);
+				f.setLayout(null);  
+				f.setVisible(true);
+				
+				 
 				gc.getModel().getPlayerCatalogue().storePlayers();
-				gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 				
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
-				gc.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
-				
-				for(int i=0;i<3;i++) {
+				/*for(int i=0;i<3;i++) {
 					for(int j=0;j<3;j++) {
 						this.gameBoard[i][j]=null;
 					}
-				}
+				}*/
 				this.moves=0;
 				
-				gc.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
-				gc.getView().getRightPanel().getSelectPlayerBtn().setEnabled(gc.getModel().ready());
-				break;
-			case -1:
-				/*System.out.println("DRAW");
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				gc.startGame();
+				return;
 				
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
-				break;*/
+			case -1:
+				
+				
 				
 		}
 		
+		if(mover==true) {
+			checkAI(0);
+			return;
+		}
+		if(mover==false) {
+			checkAI(1);
+			return;
+		}
 		
 	}
 	
@@ -301,19 +324,31 @@ public class GameModel {
 		return -1;
 	}
 	
-	public int checkAI(){
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Mr Bean"))
-			return 1;
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean"))
-			return -1;
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Hal"))
-			return 2;
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal"))
-			return -2;
-		return 0;
+	public void checkAI(int i){
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Mr Bean")==true)
+			mrBean();
+		
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal")==true)
+			return;
+		return;
 	}
 	
-	public void mrBean(int i){
+	public void mrBean(){
+		Random rand = new Random();
+		int row,col,check=-1;
+		while(check!=0) {
+			row=rand.nextInt(3);
+			col=rand.nextInt(3);
+			if(gameBoard[row][col]==null) {
+				
+				makeMove(row, col);
+				
+				check=0;
+				
+				return;
+			}
+		}
 		
 	}
+	
 }

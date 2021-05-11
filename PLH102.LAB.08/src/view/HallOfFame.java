@@ -27,7 +27,7 @@ private GameController gc;
 	      super.paintComponent(g);
 	      int x = this.getWidth()/2-50;
 			int y = 10;		
-			g.drawString("House Of Fame", x, y);
+			g.drawString("Hall Of Fame", x, y);
 			gc.getModel().getPlayerCatalogue().sortPlayers();
 			x=this.getWidth()/2 -200;
 			

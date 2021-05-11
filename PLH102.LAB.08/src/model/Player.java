@@ -108,6 +108,10 @@ public class Player implements Serializable {
 	}
 
 	 public void calcScore() {
+		 if(this.games==0) {
+			 setScore(0);
+			 return;
+		 }
 		 int score=50*(2 * this.wins + this.draws )/this.games;
 		 setScore(score);
 	 }

@@ -55,6 +55,12 @@ public class GameController extends WindowAdapter {
 		this.view.getMainPanel().showCard(MainAreaPanel.BOARD);
 		this.view.getLeftPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
 		this.view.getRightPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
+		this.getModel().setMover(false);
+		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean")==true) 
+			this.getModel().mrBean();
+			
+		
+		
 	}
 	
 	public GameModel getModel() {
@@ -78,6 +84,16 @@ public class GameController extends WindowAdapter {
 		int d=Integer.parseInt(draws);
 		this.getModel().getPlayerCatalogue().addPlayer(new Player(name,g,w,l,d));
 		this.getModel().getPlayerCatalogue().storePlayers();
+	}
+	
+	public void doneButton() {
+		this.getModel().getPlayerCatalogue().getCurrentPlayers()[0]=null;
+		this.getModel().getPlayerCatalogue().getCurrentPlayers()[1]=null;
+		this.getModel().getPlayerCatalogue().setNumOfCurrentPlayers(0);
+		
+		this.getView().getLeftPanel().getSelectPlayerBtn().setEnabled(this.getModel().ready());
+		this.getView().getRightPanel().getSelectPlayerBtn().setEnabled(this.getModel().ready());
+		this.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 	}
 	
 }
