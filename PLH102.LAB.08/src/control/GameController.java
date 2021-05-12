@@ -58,7 +58,8 @@ public class GameController extends WindowAdapter {
 		this.getModel().setMover(false);
 		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean")==true) 
 			this.getModel().mrBean();
-			
+		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal")==true) 
+			this.getModel().hal();	
 		
 		
 	}

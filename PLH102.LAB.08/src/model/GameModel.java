@@ -17,6 +17,7 @@ public class GameModel {
 	 JTextField t3;
 	Boolean mover;
 	int moves;
+	private static final int MAX_DEPTH = 6;
 	
 	public GameModel(GameController gc) {
 		this.gc=gc;
@@ -108,43 +109,7 @@ public class GameModel {
 		moves++;
 		Player[] currentPlayers = new Player[2];
 		currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
-		if(moves==9) {
-			System.out.println("draw"); /*Draw*/
-			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(0);
-			
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
-			
-			
-			t1= new JTextField("Draw");
-			t1.setBounds(50,100, 200,30);
-			f.add(t1);
-			f.setSize(400,400);
-			f.setLayout(null);  
-			f.setVisible(true);
-			
-			
-			gc.getModel().getPlayerCatalogue().storePlayers();
-			//gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
-			
-			
-			
-			/*for(int i=0;i<3;i++) {
-				for(int j=0;j<3;j++) {
-					this.gameBoard[i][j]=null;
-				}
-			}*/
-			this.moves=0;
-			gc.startGame();
-			return;
-			
-			
-			
-		}
+		
 		switch(checkWin()) {
 			case 0:
 				System.out.println("O won"); /*PLAYER 1*/
@@ -168,11 +133,7 @@ public class GameModel {
 				
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				
-				/*for(int i=0;i<3;i++) {
-					for(int j=0;j<3;j++) {
-						this.gameBoard[i][j]=null;
-					}
-				}*/
+				
 				this.moves=0;
 				gc.startGame();
 				return;
@@ -212,6 +173,43 @@ public class GameModel {
 				
 				
 		}
+		if(moves==9) {
+			System.out.println("draw"); /*Draw*/
+			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(0);
+			
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
+			
+			
+			t1= new JTextField("Draw");
+			t1.setBounds(50,100, 200,30);
+			f.add(t1);
+			f.setSize(400,400);
+			f.setLayout(null);  
+			f.setVisible(true);
+			
+			
+			gc.getModel().getPlayerCatalogue().storePlayers();
+			//gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
+			
+			
+			
+			/*for(int i=0;i<3;i++) {
+				for(int j=0;j<3;j++) {
+					this.gameBoard[i][j]=null;
+				}
+			}*/
+			this.moves=0;
+			gc.startGame();
+			return;
+			
+			
+			
+		}
 		
 		if(mover==true) {
 			checkAI(0);
@@ -239,8 +237,10 @@ public class GameModel {
 		sb.append("Total:").append("\t").append(p.getGames()).append("\n");
 		sb.append("Won:").append("\t").append(winr+"%").append("\n");
 		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
-		System.out.println("\n");
+		
+		sb.append("Recent Score:").append("\t").append(p.getRecentScore()).append("\n");
 		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
+		
 		sb.append("Best Games:").append("\t");
 		for(int i=0;i<5;i++) {
 			if(p.getBestGames()[i]!=null)
@@ -328,8 +328,9 @@ public class GameModel {
 		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Mr Bean")==true)
 			mrBean();
 		
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal")==true)
-			return;
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Hal")==true)
+			hal();
+			
 		return;
 	}
 	
@@ -350,5 +351,116 @@ public class GameModel {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public  int miniMax(int depth,boolean isMax) {
+        int value=evaluateBoard(depth);
+
+        // Terminal node (win/lose/draw) or max depth reached.
+        if ( depth == 0 ) {
+            return value;
+        }
+
+        
+        if(isMax) {
+        	int highestVal = Integer.MIN_VALUE;
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    if (gameBoard[row][col]==null) {
+                    	gameBoard[row][col]="O";
+                        highestVal = Math.max(highestVal, miniMax(depth - 1,false));
+                        gameBoard[row][col]=null;
+                    }
+                }
+            }
+            return highestVal;
+        }
+        else {
+            int lowestVal = Integer.MAX_VALUE;
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    if (gameBoard[row][col]==null) {
+                    	gameBoard[row][col]="X";
+                        lowestVal = Math.min(lowestVal, miniMax(depth - 1,true));
+                        gameBoard[row][col]=null;
+                    }
+                }
+            }
+            return lowestVal;
+        } 
+        
+    }
+
+    public  void hal() {
+        int[] bestMove = new int[]{-1, -1};
+        int bestValue = Integer.MIN_VALUE;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (gameBoard[row][col]==null) {
+                    gameBoard[row][col]="O";
+                    int moveValue = miniMax(MAX_DEPTH,false);
+                    gameBoard[row][col]=null;
+                    if (moveValue > bestValue) {
+                        bestMove[0] = row;
+                        bestMove[1] = col;
+                        bestValue=moveValue;
+                    }
+                }
+            }
+        }
+        makeMove(bestMove[0],bestMove[1]);
+        return;
+    }
+    
+    private int evaluateBoard(int depth) {
+    	switch (checkWin()) {
+    		case 0:
+	    	   return 10+depth;
+    		case 1:
+    			return -10-depth;
+		       
+		     
+		   
+	       }
+    	
+        return 0;
+    }
+
+    
+	
+	
+	
+	
+	
 	
 }

@@ -12,6 +12,8 @@ public class Player implements Serializable {
 	Game[] bestGames;
 	Game[] recentGames;
 	int bestGamesCount;
+	int recentScore=0;
+	
 	public Player(String n,int gp,int w,int l,int d) {
 
 	this.name=n;
@@ -27,6 +29,16 @@ public class Player implements Serializable {
 	
 	public Game[] getBestGames() {
 		return bestGames;
+	}
+
+
+	public int getRecentScore() {
+		return score;
+	}
+
+
+	public void setRecentScore(int recentScore) {
+		this.recentScore = recentScore;
 	}
 
 
@@ -96,6 +108,7 @@ public class Player implements Serializable {
 	}
 
 	public int getScore() {
+		
 		calcScore();
 		return score;
 		
@@ -108,12 +121,15 @@ public class Player implements Serializable {
 	}
 
 	 public void calcScore() {
+		 
 		 if(this.games==0) {
 			 setScore(0);
 			 return;
 		 }
+		 
 		 int score=50*(2 * this.wins + this.draws )/this.games;
 		 setScore(score);
+		 
 	 }
 	
 	public void addRecentGame(Game g) {
