@@ -226,6 +226,11 @@ public class GameModel {
 		return mover? "X": "O";
 	}
 	
+	public String getOppositeMoverMark() {
+		return mover? "O": "X";
+	}
+	
+	
 	public String getPlayerStats(String player) {
 		Player p=this.playerCatalogue.findPlayerByName(player);
 		StringBuilder sb = new StringBuilder("");
@@ -238,7 +243,7 @@ public class GameModel {
 		sb.append("Won:").append("\t").append(winr+"%").append("\n");
 		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
 		
-		sb.append("Recent Score:").append("\t").append(p.getRecentScore()).append("\n");
+		//sb.append("Recent Score:").append("\t").append(p.getRecentScore()).append("\n");
 		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
 		
 		sb.append("Best Games:").append("\t");
@@ -383,20 +388,28 @@ public class GameModel {
 	
 	
 	public  int miniMax(int depth,boolean isMax) {
-        int value=evaluateBoard(depth);
-
+        int value=evaluateBoard();
+        int draw=0;
         // Terminal node (win/lose/draw) or max depth reached.
-        if ( depth == 0 ) {
+        if ( depth == 0 || Math.abs(value)==10) {
             return value;
         }
-
         
+        for(int row=0;row<3;row++) {
+        	for(int col=0;col<3;col++) {
+        		if(gameBoard[row][col]!=null)
+        			draw++;
+        	}
+        }
+        if(draw==9) {
+        	return 0;
+        }
         if(isMax) {
         	int highestVal = Integer.MIN_VALUE;
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
                     if (gameBoard[row][col]==null) {
-                    	gameBoard[row][col]="O";
+                    	gameBoard[row][col]=getMoverMark();
                         highestVal = Math.max(highestVal, miniMax(depth - 1,false));
                         gameBoard[row][col]=null;
                     }
@@ -409,7 +422,7 @@ public class GameModel {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
                     if (gameBoard[row][col]==null) {
-                    	gameBoard[row][col]="X";
+                    	gameBoard[row][col]=getOppositeMoverMark();
                         lowestVal = Math.min(lowestVal, miniMax(depth - 1,true));
                         gameBoard[row][col]=null;
                     }
@@ -427,7 +440,7 @@ public class GameModel {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 if (gameBoard[row][col]==null) {
-                    gameBoard[row][col]="O";
+                    gameBoard[row][col]=getMoverMark();
                     int moveValue = miniMax(MAX_DEPTH,false);
                     gameBoard[row][col]=null;
                     if (moveValue > bestValue) {
@@ -442,17 +455,45 @@ public class GameModel {
         return;
     }
     
-    private int evaluateBoard(int depth) {
-    	switch (checkWin()) {
-    		case 0:
-	    	   return 10+depth;
-    		case 1:
-    			return -10-depth;
-		       
-		     
-		   
-	       }
-    	
+    private int evaluateBoard() {
+        // Checking for Rows for X or O victory.
+        for (int row = 0; row < 3; row++){
+            if (gameBoard[row][0] == gameBoard[row][1] &&gameBoard[row][1] == gameBoard[row][2]){
+                if (gameBoard[row][0] == getMoverMark())
+                    return +10;
+                else if (gameBoard[row][0] == getOppositeMoverMark())
+                    return -10;
+            }
+        }
+     
+        // Checking for Columns for X or O victory.
+        for (int col = 0; col < 3; col++){
+            if (gameBoard[0][col] == gameBoard[1][col] &&gameBoard[1][col] == gameBoard[2][col]){
+                if (gameBoard[0][col] == getMoverMark())
+                    return +10;
+     
+                else if (gameBoard[0][col] == getOppositeMoverMark())
+                    return -10;
+            }
+        }
+     
+        // Checking for Diagonals for X or O victory.
+        if (gameBoard[0][0] == gameBoard[1][1] && gameBoard[1][1] == gameBoard[2][2]){
+            if (gameBoard[0][0] == getMoverMark())
+                return +10;
+            else if (gameBoard[0][0] == getOppositeMoverMark())
+                return -10;
+        }
+     
+        if (gameBoard[0][2] == gameBoard[1][1] && gameBoard[1][1] == gameBoard[2][0])
+        {
+            if (gameBoard[0][2] == getMoverMark())
+                return +10;
+            else if (gameBoard[0][2] == getOppositeMoverMark())
+                return -10;
+        }
+     
+        // Else if none of them have won then return 0
         return 0;
     }
 

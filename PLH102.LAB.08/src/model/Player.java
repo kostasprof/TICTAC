@@ -33,6 +33,7 @@ public class Player implements Serializable {
 
 
 	public int getRecentScore() {
+		
 		return score;
 	}
 

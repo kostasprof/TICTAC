@@ -107,6 +107,7 @@ public class PlayerPanel extends GamePanel{
 				return;
 			}
 			Player p= gc.getModel().getPlayerCatalogue().findPlayerByName(selPlayer);
+			
 			gc.getModel().getPlayerCatalogue().setCurrentPlayers(gc.getModel().getPlayerCatalogue().getNumOfCurrentPlayers(),p);
             numOfCurrentPlayers++;
 			this.currentPlayer=selPlayer;			

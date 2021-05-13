@@ -35,13 +35,20 @@ public class PlayersCatalogue {
 
 
 	public void setCurrentPlayers(int i,Player p) {
+		if(this.currentPlayers[i]!=null) {
+			this.currentPlayers[i] = p;
+			return;
+		}
 		this.currentPlayers[i] = p;
 		numOfCurrentPlayers++;
+		if(numOfCurrentPlayers>1)
+			numOfCurrentPlayers--;
 	}
 
 
 
 	public int getNumOfCurrentPlayers() {
+		
 		return numOfCurrentPlayers;
 	}
 
