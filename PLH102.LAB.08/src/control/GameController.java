@@ -4,6 +4,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import model.GameModel;
 import model.PlayersCatalogue;
@@ -13,9 +14,24 @@ import model.Player;
 public class GameController extends WindowAdapter {
 	MainWindow view;
 	GameModel model;
+	Timer timerbean;
+	Timer timerhal;
 	
 	public GameController() {		
-		
+		this.timerbean =new Timer(1000,(event)->{
+			if(this.getModel().inPlay()) {
+				this.getModel().mrBean();
+				//this.timerhal.restart();
+			}
+		});
+		timerbean.setRepeats(false);
+		this.timerhal= new Timer(1000,(event)->{
+			if(this.getModel().inPlay()) {
+				this.getModel().hal();
+				//this.timerbean.restart();
+			}
+		});
+		timerhal.setRepeats(false);
 	}
 	
 	@Override
@@ -24,6 +40,22 @@ public class GameController extends WindowAdapter {
 	}
 	
 	
+	public Timer getTimerbean() {
+		return timerbean;
+	}
+
+	public void setTimerbean(Timer timerbean) {
+		this.timerbean = timerbean;
+	}
+
+	public Timer getTimerhal() {
+		return timerhal;
+	}
+
+	public void setTimerhal(Timer timerhal) {
+		this.timerhal = timerhal;
+	}
+
 	public void start() {
 		
 		this.view= new MainWindow(this);
@@ -56,6 +88,14 @@ public class GameController extends WindowAdapter {
 		this.view.getLeftPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
 		this.view.getRightPanel().getSelectPlayerBtn().setEnabled(model.NoPlay());
 		this.getModel().setMover(false);
+		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean")==true && this.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Hal")) {
+			this.timerbean.restart();
+		    return;
+		}
+		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[0].getName().equals("Mr Bean")==true && this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal")) {
+			this.timerhal.restart();
+			return;
+		}
 		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Mr Bean")==true) 
 			this.getModel().mrBean();
 		if(this.getModel().getPlayerCatalogue().getCurrentPlayers()[1].getName().equals("Hal")==true) 

@@ -6,6 +6,7 @@ import javax.swing.*;
 import control.GameController;
 import view.MainAreaPanel;
 import view.PlayerPanel;
+import java.time.LocalDateTime;
 public class GameModel {
 	PlayersCatalogue  playerCatalogue;
 	String [] gamePlayers;		
@@ -47,7 +48,7 @@ public class GameModel {
 	
 	
 	public boolean inPlay() {
-		return gameBoard !=null && moves <9;
+		return gameBoard !=null && moves <9 && checkWin()==-1;
 	}
 	
 	public boolean NoPlay() {
@@ -103,6 +104,8 @@ public class GameModel {
 	}
 	
 	public void makeMove(int row, int col) {
+		if(NoPlay()) 
+			return;
 		checkMoveValidity(row, col);
 		gameBoard[row][col]=getMoverMark();
 		mover=!mover;
@@ -114,12 +117,12 @@ public class GameModel {
 			case 0:
 				System.out.println("O won"); /*PLAYER 1*/
 				currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(1);
 				
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],-1));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],-1,LocalDateTime.now()));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(-1);
 				
 				
@@ -135,17 +138,23 @@ public class GameModel {
 				
 				
 				this.moves=0;
+				if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
+					if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal")) {
+			            
+						return;
+					}
 				gc.startGame();
+				
 				return;
 				
 			case 1:
 				System.out.println("X won"); /*PLAYER 0*/
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(1);
 				
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],-1));
-				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],-1,LocalDateTime.now()));
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(-1);
 				
 				t1= new JTextField(currentPlayers[0].getName()+" won");
@@ -164,7 +173,9 @@ public class GameModel {
 					}
 				}*/
 				this.moves=0;
-				
+				if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
+					if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal"))
+						return;
 				gc.startGame();
 				return;
 				
@@ -176,12 +187,12 @@ public class GameModel {
 		if(moves==9) {
 			System.out.println("draw"); /*Draw*/
 			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0,LocalDateTime.now()));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(0);
 			
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0));
-			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0,LocalDateTime.now()));
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
 			
 			
@@ -204,6 +215,9 @@ public class GameModel {
 				}
 			}*/
 			this.moves=0;
+			if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
+				if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal"))
+					return;
 			gc.startGame();
 			return;
 			
@@ -252,7 +266,7 @@ public class GameModel {
 				sb.append("Against ").append(p.getBestGames()[i].getOpponent().getName()).append("\n");
 		}
 		sb.append("Recent Games:");
-		for(int j=0;j<5;j++) {
+		for(int j=4;j>-1;j--) {
 			if(p.getRecentGames()[j]!=null)
 				sb.append("Against ").append(p.getRecentGames()[j].getOpponent().getName()).append("\n");
 		}
@@ -330,13 +344,17 @@ public class GameModel {
 	}
 	
 	public void checkAI(int i){
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Mr Bean")==true)
-			mrBean();
-		
-		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Hal")==true)
-			hal();
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Mr Bean")==true) {
+			gc.getTimerbean().start();
+			return;
+		}
 			
-		return;
+		
+		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Hal")==true) {
+			gc.getTimerhal().start();
+		    return;
+		}
+		return;	
 	}
 	
 	public void mrBean(){

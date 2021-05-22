@@ -134,7 +134,7 @@ public class Player implements Serializable {
 	 }
 	
 	public void addRecentGame(Game g) {
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<5;i++) {
 			if(recentGames[i]==null) {
 				recentGames[i]=g;
 				return;
@@ -192,6 +192,7 @@ public class Player implements Serializable {
 					bestGames[j]=bestGames[j-1];
 					bestGames[j-1]=temp;
 					
+					
 				}
 			}
 		}
@@ -215,7 +216,12 @@ public class Player implements Serializable {
 				return 2;
 			}
 			if(g1.opponent.getScore()==g2.opponent.getScore()) {
-				//find most recent game
+				if(g1.getLocalDateTime().compareTo(g2.getLocalDateTime())>0) {
+					return 1;
+				}
+				if(g1.getLocalDateTime().compareTo(g2.getLocalDateTime())<0) {
+					return 2;
+				}
 			}
 		}
 		return 0;
