@@ -408,7 +408,7 @@ public class GameModel {
 	public  int miniMax(int depth,boolean isMax) {
         int value=evaluateBoard();
         int draw=0;
-        // Terminal node (win/lose/draw) or max depth reached.
+        
         if ( depth == 0 || Math.abs(value)==10) {
             return value;
         }
@@ -517,7 +517,27 @@ public class GameModel {
 
     
 	
-	
+    public  int[] testHal() {
+        int[] bestMove = new int[]{-1, -1};
+        int bestValue = Integer.MIN_VALUE;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (gameBoard[row][col]==null) {
+                    gameBoard[row][col]=getMoverMark();
+                    int moveValue = miniMax(MAX_DEPTH,false);
+                    gameBoard[row][col]=null;
+                    if (moveValue > bestValue) {
+                        bestMove[0] = row;
+                        bestMove[1] = col;
+                        bestValue=moveValue;
+                    }
+                }
+            }
+        }
+        
+        return bestMove;
+    }
 	
 	
 	

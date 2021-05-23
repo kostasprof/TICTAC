@@ -165,7 +165,7 @@ public class PlayersCatalogue {
 		
 		ObjectInputStream is = null;
 		FileInputStream fis = null;		
-		int pos=0;
+		
 		try {
 			fis = new FileInputStream("players.txt");			
 			is = new ObjectInputStream(fis);			

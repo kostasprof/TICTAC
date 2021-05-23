@@ -40,6 +40,14 @@ public class GameController extends WindowAdapter {
 	}
 	
 	
+	public void setView(MainWindow view) {
+		this.view = view;
+	}
+
+	public void setModel(GameModel model) {
+		this.model = model;
+	}
+
 	public Timer getTimerbean() {
 		return timerbean;
 	}
