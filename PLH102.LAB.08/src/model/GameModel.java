@@ -117,10 +117,12 @@ public class GameModel {
 			case 0:
 				System.out.println("O won"); /*PLAYER 1*/
 				currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].setRecentScore(currentPlayers[1].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(1);
 				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].setRecentScore(currentPlayers[0].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(-1);
@@ -149,10 +151,12 @@ public class GameModel {
 				
 			case 1:
 				System.out.println("X won"); /*PLAYER 0*/
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].setRecentScore(currentPlayers[0].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(1);
 				
+				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].setRecentScore(currentPlayers[1].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(-1);
@@ -187,10 +191,12 @@ public class GameModel {
 		if(moves==9) {
 			System.out.println("draw"); /*Draw*/
 			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].setRecentScore(currentPlayers[1].getScore());
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(0);
 			
+			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].setRecentScore(currentPlayers[0].getScore());
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
@@ -257,9 +263,9 @@ public class GameModel {
 		sb.append("Won:").append("\t").append(winr+"%").append("\n");
 		sb.append("Lost:").append("\t").append(lossr+"%").append("\n");
 		
-		//sb.append("Recent Score:").append("\t").append(p.getRecentScore()).append("\n");
-		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
 		
+		sb.append("Total Score:").append("\t").append(p.getScore()).append("\n");
+		sb.append("Recent Score:").append("\t").append(p.getRecentScore()).append("\n");
 		sb.append("Best Games:").append("\t");
 		for(int i=0;i<5;i++) {
 			if(p.getBestGames()[i]!=null)
