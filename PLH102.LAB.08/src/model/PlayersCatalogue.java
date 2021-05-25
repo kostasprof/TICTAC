@@ -120,7 +120,7 @@ public class PlayersCatalogue {
 		return null;
 	}
 	
-//Sorts the players by score
+	//Sorts the players by score
 	public void sortPlayers() {
 		Player temp;
 		for(int i=0;i<players.length-1;i++) {
