@@ -102,7 +102,9 @@ public class GameModel {
 	public void setPlayerCatalogue(PlayersCatalogue playerCatalogue) {
 		this.playerCatalogue = playerCatalogue;
 	}
-	
+	/*Takes the row and column that we want to make a move to, makes the move,checks if anybody has won and checks if the game is a draw and then updates the players' 
+	stats. If at least one of the players is not AI then it starts a new game when the current game ends and then checks if the next player to play is AI. If so,
+	it's function is called*/
 	public void makeMove(int row, int col) {
 		if(NoPlay()) 
 			return;
@@ -112,11 +114,13 @@ public class GameModel {
 		moves++;
 		Player[] currentPlayers = new Player[2];
 		currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
-		
+		//Checking if somebody has won
 		switch(checkWin()) {
 			case 0:
+				//If O won
 				System.out.println("O won"); /*PLAYER 1*/
 				currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
+				//Update players stats
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].setRecentScore(currentPlayers[1].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],1,LocalDateTime.now()));
@@ -127,7 +131,7 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(-1);
 				
-				
+				//This announces winner
 				t1= new JTextField(currentPlayers[1].getName()+" won");
 				t1.setBounds(50,100, 200,30);
 				f.add(t1);
@@ -135,22 +139,26 @@ public class GameModel {
 				f.setLayout(null);  
 				f.setVisible(true);
 				
-				
+				//Storing players with updated stats
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				
 				
 				this.moves=0;
+				//If both players are AI startGame() is not called
 				if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
 					if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal")) {
 			            
 						return;
 					}
+				//Starts new game
 				gc.startGame();
 				
 				return;
 				
 			case 1:
+				//If X won
 				System.out.println("X won"); /*PLAYER 0*/
+				//Update players stats
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].setRecentScore(currentPlayers[0].getScore());
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addRecentGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],1,LocalDateTime.now()));
@@ -161,6 +169,7 @@ public class GameModel {
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addBestGame(new Game(currentPlayers[1],currentPlayers[0],-1,LocalDateTime.now()));
 				gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addGame(-1);
 				
+				//This announces winner
 				t1= new JTextField(currentPlayers[0].getName()+" won");
 				t1.setBounds(50,100, 200,30);
 				f.add(t1);
@@ -168,28 +177,30 @@ public class GameModel {
 				f.setLayout(null);  
 				f.setVisible(true);
 				
-				 
+				//Storing players with updated stats
 				gc.getModel().getPlayerCatalogue().storePlayers();
 				
-				/*for(int i=0;i<3;i++) {
-					for(int j=0;j<3;j++) {
-						this.gameBoard[i][j]=null;
-					}
-				}*/
+				
 				this.moves=0;
+				//If both players are AI startGame() is not called
 				if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
 					if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal"))
 						return;
+				
+				//Starts new game
 				gc.startGame();
 				return;
 				
 			case -1:
-				
+			//No wins	
 				
 				
 		}
+		//If moves reaches 9 that means that the board is full and no-one won 
 		if(moves==9) {
+			//The game is a draw
 			System.out.println("draw"); /*Draw*/
+			//Updating players stats
 			currentPlayers=gc.getModel().getPlayerCatalogue().getCurrentPlayers();
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].setRecentScore(currentPlayers[1].getScore());
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[1].addRecentGame(new Game(currentPlayers[1],currentPlayers[0],0,LocalDateTime.now()));
@@ -201,7 +212,7 @@ public class GameModel {
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addBestGame(new Game(currentPlayers[0],currentPlayers[1],0,LocalDateTime.now()));
 			gc.getModel().getPlayerCatalogue().getCurrentPlayers()[0].addGame(0);
 			
-			
+			//Draw is announced
 			t1= new JTextField("Draw");
 			t1.setBounds(50,100, 200,30);
 			f.add(t1);
@@ -209,21 +220,16 @@ public class GameModel {
 			f.setLayout(null);  
 			f.setVisible(true);
 			
-			
+			//Storing players with updated stats
 			gc.getModel().getPlayerCatalogue().storePlayers();
-			//gc.getView().getMainPanel().showCard(MainAreaPanel.HOF);
 			
-			
-			
-			/*for(int i=0;i<3;i++) {
-				for(int j=0;j<3;j++) {
-					this.gameBoard[i][j]=null;
-				}
-			}*/
 			this.moves=0;
+			//If both players are AI startGame() is not called
 			if(currentPlayers[0].getName().equals("Mr Bean")|| currentPlayers[1].getName().equals("Mr Bean"))
 				if(currentPlayers[0].getName().equals("Hal")|| currentPlayers[1].getName().equals("Hal"))
 					return;
+			
+			//Starts new game
 			gc.startGame();
 			return;
 			
@@ -279,6 +285,8 @@ public class GameModel {
 		return sb.toString();			
 	}
 	
+//Checks every possible combination results in a win for X and O and returns 1 if X has a winning combination, 0 if O has a winning combination and -1 if no winning 
+//combinations were found 
 	public int checkWin() {
 		if(gameBoard[0][0]!=null && gameBoard[0][1]!=null && gameBoard[0][2]!=null)
 			if(gameBoard[0][0].equals("X")==true && gameBoard[0][1].equals("X")==true && gameBoard[0][2].equals("X")==true)
@@ -348,7 +356,8 @@ public class GameModel {
 		
 		return -1;
 	}
-	
+
+//Receives the next player's number in the currentPlayers array and checks if it is an AI. If it is, the AI's function is called
 	public void checkAI(int i){
 		if(gc.getModel().getPlayerCatalogue().getCurrentPlayers()[i].getName().equals("Mr Bean")==true) {
 			gc.getTimerbean().start();
@@ -362,7 +371,8 @@ public class GameModel {
 		}
 		return;	
 	}
-	
+
+//A random move is made on the board
 	public void mrBean(){
 		Random rand = new Random();
 		int row,col,check=-1;
@@ -381,35 +391,7 @@ public class GameModel {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public  int miniMax(int depth,boolean isMax) {
         int value=evaluateBoard();
@@ -457,6 +439,7 @@ public class GameModel {
         
     }
 
+//Makes the best possible move on the board by using the minimax algorithm
     public  void hal() {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
@@ -522,7 +505,7 @@ public class GameModel {
     }
 
     
-	
+//Testing a variation of Hal to use in a unit test	
     public  int[] testHal() {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
@@ -544,8 +527,6 @@ public class GameModel {
         
         return bestMove;
     }
-	
-	
 	
 	
 }

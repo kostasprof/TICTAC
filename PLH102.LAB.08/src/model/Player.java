@@ -107,13 +107,10 @@ public class Player implements Serializable {
 	public void setLosses(int losses) {
 		this.losses = losses;
 	}
-
-	public int getScore() {
-		
-		
+//Whenever getScore() is called it calculates the current score of a player before it returns it
+	public int getScore() {	
 		calcScore();
-		return score;
-		
+		return score;	
 	}
 
 	
@@ -121,8 +118,9 @@ public class Player implements Serializable {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-	 public void calcScore() {
+	
+//Calculates the score of a payer and sets it, if the player has 0 games played the score is set to 0
+	public void calcScore() {
 		 
 		 if(this.games==0) {
 			 setScore(0);
@@ -133,7 +131,8 @@ public class Player implements Serializable {
 		 setScore(score);
 		 
 	 }
-	
+
+//Takes the most recent game, adds it to the end of the recentGames array, makes room in the array if it's full by removing the game in the first position 	
 	public void addRecentGame(Game g) {
 		for(int i=0;i<5;i++) {
 			if(recentGames[i]==null) {
@@ -151,36 +150,14 @@ public class Player implements Serializable {
 		
 	}
 	
-	/*public void addBestGame(Game g) {
-		int best;
-		if(bestGames[0]==null) {
-			bestGames[0]=g;
-			bestGamesCount++;
-			return;
-		}
-		for(int i=0;i<5;i++) {
-			if(bestGames[i]!=null) {
-			best=compareGames(g,bestGames[i]);
-			if(best==1) {
-				for(int j=bestGamesCount-1;j>i;j--) {
-					bestGames[j]=bestGames[j-1];
-					}
-				bestGames[i]=g;
-				bestGamesCount++;
-			}
-			else if(best==2) {
-				continue;
-			}
-			}
-		}
-		}*/
-	
+//Takes a game and adds it to the bestGames array and then sorts the games in the array	
 	public void addBestGame(Game g){
 		bestGames[bestGamesCount]=g;
 		bestGamesCount++;
 		sortGames();
 	}
-	
+
+//Compares every single game and the five first are placed in the first five positions of the array 
 	public void sortGames() {
 		Game temp;
 		for(int i=0;i<bestGames.length-1;i++) {
@@ -199,9 +176,7 @@ public class Player implements Serializable {
 		}
 	}
 		
-		
-    
-	
+//Takes two games and returns 1 if the first game is better or 2 if the second one is better
 	public int compareGames(Game g1,Game g2) {
 		if(g1.getResult()>g2.getResult()) {
 			return 1;
@@ -227,6 +202,8 @@ public class Player implements Serializable {
 		}
 		return 0;
 	}
+	
+//Takes the result of a game (1 for win, 0 for draw, -1 for loss) and changes the player's stats accordingly
 	public void addGame(int i) {
 			if(i==1) {
 				this.games++;

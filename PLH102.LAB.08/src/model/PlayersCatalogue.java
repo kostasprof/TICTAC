@@ -33,7 +33,7 @@ public class PlayersCatalogue {
 	}
 
 
-
+//Takes a player with the number of the cell we want to add him to
 	public void setCurrentPlayers(int i,Player p) {
 		if(this.currentPlayers[i]!=null) {
 			this.currentPlayers[i] = p;
@@ -59,7 +59,7 @@ public class PlayersCatalogue {
 	}
 
 
-
+//Takes the cell of the player in the Player array and returns him 
 	public Player getPlayer(int i) {
 		if (i<this.numofplayers-1 || i>this.numofplayers-1) {
 			return null;
@@ -89,7 +89,7 @@ public class PlayersCatalogue {
 		
 		numofplayers++;
 	}
-	
+
 	public String getPlayerName(Player i) {
 		String n=i.getName();
 		return n;
@@ -103,11 +103,13 @@ public class PlayersCatalogue {
 		return s;
 	}
 	
+//Takes the number of the player in the Player array and returns his name 
 	public String getPlayerName(int i) {
 		 return players[i].getName();
 		
 	}
 	
+//Finds a player with his name and returns him
 	public Player findPlayerByName(String name) {
 		for(Player p: this.players) {
 			if(p!=null&&p.getName().equals(name)) {
@@ -118,7 +120,7 @@ public class PlayersCatalogue {
 		return null;
 	}
 	
-	
+//Sorts the players by score
 	public void sortPlayers() {
 		Player temp;
 		for(int i=0;i<players.length-1;i++) {
@@ -135,7 +137,8 @@ public class PlayersCatalogue {
 			}
 		}
 	}
-	
+
+//Stores in the players.txt file all the players from the Players array
 	public void storePlayers() {
 		ObjectOutputStream os = null;
 		FileOutputStream fos = null;
@@ -159,7 +162,8 @@ public class PlayersCatalogue {
 			}
 		}
 	}
-	
+
+//Loads all the players from the players.txt file
 	public void loadPlayers() {
 		
 		
