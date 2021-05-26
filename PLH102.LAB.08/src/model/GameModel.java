@@ -461,9 +461,9 @@ public class GameModel {
         makeMove(bestMove[0],bestMove[1]);
         return;
     }
-    
+ //Returns 10 if Hal won or -10 it lost or 0 if noone has won  
     private int evaluateBoard() {
-        // Checking for Rows for X or O victory.
+        // Checking Rows 
         for (int row = 0; row < 3; row++){
             if (gameBoard[row][0] == gameBoard[row][1] &&gameBoard[row][1] == gameBoard[row][2]){
                 if (gameBoard[row][0] == getMoverMark())
@@ -473,7 +473,7 @@ public class GameModel {
             }
         }
      
-        // Checking for Columns for X or O victory.
+        // Checking Columns 
         for (int col = 0; col < 3; col++){
             if (gameBoard[0][col] == gameBoard[1][col] &&gameBoard[1][col] == gameBoard[2][col]){
                 if (gameBoard[0][col] == getMoverMark())
@@ -484,7 +484,7 @@ public class GameModel {
             }
         }
      
-        // Checking for Diagonals for X or O victory.
+        // Checking Diagonals 
         if (gameBoard[0][0] == gameBoard[1][1] && gameBoard[1][1] == gameBoard[2][2]){
             if (gameBoard[0][0] == getMoverMark())
                 return +10;
